@@ -12,3 +12,4 @@ class Solution:
         for i in nums:
             mul *= i
         return signFunc(mul)
+    
