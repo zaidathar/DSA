@@ -1,36 +1,68 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
 class Solution {
-    public ListNode reverseList(ListNode head){
-        ListNode newL = head ;
-        ListNode reversed = null;
-        while(newL!=null){
-            ListNode temp = new ListNode(newL.val);
-            temp.next = reversed;
-            reversed = temp;
-            newL = newL.next;
+
+    private static ListNode reverse(ListNode node){
+        ListNode head = null;
+        ListNode n = node;
+
+        while(n != null){
+            ListNode temp = new ListNode(n.val);
+            temp.next = head;
+            head = temp;
+            n = n.next;
         }
-        
-        return reversed;
+
+        return head;
+    }
+
+    private static boolean isEqual(ListNode first , ListNode second){
+
+        while(first != null && second != null){
+            if(first.val != second.val)
+                return false;
+            first = first.next;
+            second = second.next;
+        }
+
+        return first == null && second == null;
+    }
+
+    private static boolean recursiveApproach(ListNode head){
+         ListNode reversed = reverse(head);
+        return isEqual(head, reversed);
+    }
+
+    private static boolean iterativeApproach(ListNode head){
+        ListNode fast = head;
+        ListNode slow = head;
+
+        Stack<Integer> stack = new Stack();
+
+        while(fast != null && fast.next != null){
+            stack.push(slow.val);
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        // Odd number of elements , skip middle element
+        if(fast != null){
+            slow = slow.next;
+        }
+
+        while(slow != null){
+            int top = stack.pop().intValue();
+
+            if(top != slow.val)
+                return false;
+
+            slow = slow.next;
+        }
+
+        return true;
     }
     public boolean isPalindrome(ListNode head) {
-        ListNode reversed = reverseList(head);
-        
-        while(head!=null){
-            System.out.println(head.val+" <-> "+reversed.val);
-            if(head.val != reversed.val)return false;
-            head = head.next;
-            reversed = reversed.next;
-        }
-        
-        return true;
+        return iterativeApproach(head);
+    //    return recursiveApproach(head);
+
+    
     }
 }
