@@ -1,5 +1,35 @@
 class Solution {
+
     public int[] productExceptSelf(int[] nums) {
+       return approach2(nums); 
+
+   }
+    public int[] approach2(int[] nums) { // Beats 99.98% solution
+        int len = nums.length;
+        int[] left = new int[len];
+        int[] right = new int[len];
+        left[len-1] = right[0] = 1;
+        int prod = 1;
+        for(int i = 1; i < len ; i++){
+            prod *= nums[i-1];
+            right[i] = prod;
+        }
+
+        prod = 1; 
+
+        for(int i = len-2; i >=0 ;i--){
+            prod *= nums[i+1];
+            left[i] = prod;
+        }
+
+        for(int i = 0; i<len; i++){
+            nums[i] = left[i] * right[i];
+        }
+        
+        return nums;
+    }
+
+    public int[] approach1(int[] nums) {
         int size = nums.length;
         int[] res = new int[size];
         // for prefix product
