@@ -13,7 +13,7 @@
 > Time complexity O(m*n)
 > Space complexity O(max(m,n)) 
 
-### Intiution 
+### Intuition 
 
 - Create two boolean array for marking row and coloum containing zero.
 - Iterate over matrix if any value is zero mark row and col of boolean array as true.
